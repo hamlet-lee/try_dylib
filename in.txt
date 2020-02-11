@@ -1,0 +1,15 @@
+./f1.so a b
+./f1.so a b
+./f1.so a b
+./f1.so a b
+./f1.so a b
+./f1.so a b
+./f1.so a b
+./f1.so a b
+./f1.so a b
+./f1.so a b
+./f1.so a b
+./f1.so a b
+./f1.so a b
+./f1.so a b
+quit

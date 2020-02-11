@@ -2,6 +2,9 @@
 ./f1.so a b
 ./f1.so a b
 ./f1.so a b
+./f2.so a b
+./f2.so a b
+./f2.so a b
 ./f1.so a b
 ./f1.so a b
 ./f1.so a b

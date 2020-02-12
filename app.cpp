@@ -11,7 +11,7 @@ int main () {
     typedef const char* (*FN_CALL) (const char* libName, const char* arg, const char* constArg);
     typedef void (*FN_DROP) (const char* libName, const char* str);
     
-    char *myso = (char*)"./caller.so";
+    char *myso = (char*)"./libcaller.so";
  
     if((handle = dlopen(myso, RTLD_NOW)) == NULL) {
         cout << "dlopen" << dlerror();

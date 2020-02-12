@@ -1,9 +1,16 @@
 #!/bin/sh
 # http://www.yolinux.com/TUTORIALS/LibraryArchives-StaticAndDynamic.html
-g++ -g -ldl app.cpp
-gcc -g -Wall -fPIC -c  caller.cpp
+javac App.java
+javah App
 
-gcc -shared -Wl,-soname,caller.so.1 -o caller.so caller.o
+g++ -g -ldl app.cpp
+
+# https://www.jianshu.com/p/e175d5417e05
+gcc -g -I/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.242.b08-0.el7_7.x86_64/include/ -I/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.242.b08-0.el7_7.x86_64/include/linux -Wall -fPIC -c  caller.cpp
+# https://www.cnblogs.com/LiuYanYGZ/p/6110822.html
+# Linux下：一定要将Linux下的共享库（我暂且这么叫:）命名成libxxx.so的形式，"xxx"是你在System.loadLibrary("xxx")中用到的加载库名称。
+gcc -shared -Wl,-soname,libcaller.so.1 -o libcaller.so caller.o
+
 gcc -g -Wall -fPIC -c  f1.cpp
 gcc -shared -Wl,-soname,f1.so.1 -o f1.so f1.o
 

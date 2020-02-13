@@ -1,5 +1,5 @@
 [package]
-name = "rust-caller"
+name = "rust_f3"
 version = "0.1.0"
 authors = ["Hamlet Lee <lisining@gmail.com>"]
 edition = "2018"
@@ -7,7 +7,10 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-jni = "0.14.0"
+# https://docs.rs/libc/0.2.66/libc/
+# https://rust-lang.github.io/libc/#platform-specific-documentation
+libc = "0.2"
+lazy_static = "1.4"
 
 [lib]
 crate_type = ["cdylib"]

@@ -22,7 +22,7 @@ lazy_static! {
 }
 
 #[no_mangle]
-pub extern "C" fn call (arg: *const c_char, constantArg: *const c_char) -> *const c_char {
+pub extern "C" fn process (arg: *const c_char, constantArg: *const c_char) -> *const c_char {
   // how?
   // https://doc.rust-lang.org/std/ffi/struct.CStr.html
   let arg = unsafe { CStr::from_ptr(arg) };
@@ -34,7 +34,8 @@ pub extern "C" fn call (arg: *const c_char, constantArg: *const c_char) -> *cons
   ptr
 }
 
-pub extern "C" fn drop (str: *const c_char) -> () {
+#[no_mangle]
+pub extern "C" fn deleter (str: *const c_char) -> () {
   // how?
   // drop(str)
   // https://stackoverflow.com/questions/34832583/global-mutable-hashmap-in-a-library

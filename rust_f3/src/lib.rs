@@ -11,6 +11,9 @@ use std::ffi::CString;
 use std::collections::HashMap;
 use std::sync::Mutex;
 
+// https://stackoverflow.com/questions/26388861/how-to-include-module-from-another-file-from-the-same-project
+mod real;
+
 #[macro_use]
 extern crate lazy_static;
 
@@ -22,12 +25,15 @@ lazy_static! {
 }
 
 #[no_mangle]
-pub extern "C" fn process (arg: *const c_char, constantArg: *const c_char) -> *const c_char {
+pub extern "C" fn process (arg: *const c_char, constant_arg: *const c_char) -> *const c_char {
   // how?
   // https://doc.rust-lang.org/std/ffi/struct.CStr.html
   let arg = unsafe { CStr::from_ptr(arg) };
-  let constantArg = unsafe { CStr::from_ptr(constantArg) };
-  let r = CString::new("abc").unwrap();
+  let constant_arg = unsafe { CStr::from_ptr(constant_arg) };
+  // https://doc.rust-lang.org/std/ffi/struct.CStr.html#method.to_string_lossy
+  let ret = real::process(arg.to_str().unwrap(), constant_arg.to_str().unwrap());
+  // let r = CString::new("abc").unwrap();
+  let r = CString::new(ret).unwrap();
   let ptr = r.as_ptr();
   // https://stackoverflow.com/questions/34832583/global-mutable-hashmap-in-a-library
   HASHMAP.lock().unwrap().insert(ptr as u8, r);
@@ -41,4 +47,3 @@ pub extern "C" fn deleter (str: *const c_char) -> () {
   // https://stackoverflow.com/questions/34832583/global-mutable-hashmap-in-a-library
   HASHMAP.lock().unwrap().remove(&(str as u8));
 }
-

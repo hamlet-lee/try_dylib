@@ -1,0 +1,2 @@
+./rust_f3/target/debug/librust_f3.so a b
+quit
